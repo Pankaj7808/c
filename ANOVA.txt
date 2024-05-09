@@ -1,0 +1,21 @@
+install.packages("readr")
+install.packages("ggplot2")
+install.packages("multcompView")
+install.packages("dplyr")
+
+library(readr)
+library(ggplot2)
+library(multcompView)
+library(dplyr)
+
+radon <- data.frame(D = c(0.37,0.37,0.37,0.37,0.51,0.51,0.51,0.51,0.71,0.71,0.71,0.71,1.02,1.02,1.02,1.02,1.4,1.4,1.4,1.4,1.99,1.99,1.99,1.99),
+                    RR = c(80,83,83,85,75,75,79,79,74,73,76,77,67,72,74,74,62,62,67,69,60,61,64,66))
+str(radon)
+
+plot(radon$D, radon$RR)
+
+anova.rr <- aov(RR ~ as.factor(D), data = radon)
+summary(anova.rr)
+
+tukey.rr <- TukeyHSD(anova.rr)
+print(tukey.rr)
